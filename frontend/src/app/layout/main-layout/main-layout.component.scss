@@ -1,0 +1,21 @@
+.app-container {
+  min-height: 100vh;
+  background: var(--background);
+}
+
+.main-content-wrapper {
+  display: flex;
+  padding-top: var(--top-menu-height);
+}
+
+.content-area {
+  flex: 1;
+  margin-left: var(--sidebar-width);
+  min-height: calc(100vh - var(--top-menu-height));
+  transition: margin-left 0.2s ease;
+  padding: 24px;
+
+  &.sidebar-collapsed {
+    margin-left: var(--sidebar-collapsed-width);
+  }
+}
