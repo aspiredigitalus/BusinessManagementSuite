@@ -1,0 +1,88 @@
+# ========================
+# Backend (Java/Maven)
+# ========================
+backend/target/
+backend/*.jar
+backend/*.war
+backend/*.class
+backend/.mvn/wrapper/maven-wrapper.jar
+
+# Maven
+backend/.m2/
+backend/pom.xml.tag
+backend/pom.xml.releaseBackup
+backend/pom.xml.versionsBackup
+backend/release.properties
+
+# ========================
+# Frontend (Angular/Node)
+# ========================
+frontend/node_modules/
+frontend/dist/
+frontend/.angular/
+frontend/.sass-cache/
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+
+# ========================
+# IDE - IntelliJ IDEA
+# ========================
+.idea/
+*.iml
+*.ipr
+*.iws
+out/
+
+# ========================
+# IDE - VS Code
+# ========================
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# ========================
+# IDE - Eclipse
+# ========================
+.classpath
+.project
+.settings/
+bin/
+
+# ========================
+# OS Generated Files
+# ========================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# ========================
+# Environment Files
+# ========================
+.env
+.env.local
+.env.*.local
+*.env
+
+# ========================
+# Logs
+# ========================
+*.log
+logs/
+
+# ========================
+# Build outputs
+# ========================
+backend/src/main/resources/static/*
+!backend/src/main/resources/static/.gitkeep
+
+# ========================
+# Docker
+# ========================
+docker-compose.override.yml
