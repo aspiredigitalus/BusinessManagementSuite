@@ -17,4 +17,8 @@ export class TopMenuComponent {
   onLogout(): void {
     this.authService.logout().subscribe();
   }
+
+  onSetup(): void {
+    this.router.navigate(['/setup']);
+  }
 }

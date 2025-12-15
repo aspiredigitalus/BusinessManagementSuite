@@ -32,6 +32,11 @@ export const routes: Routes = [
         path: 'modules',
         loadComponent: () => import('./modules/module-store/module-store.component')
           .then(m => m.ModuleStoreComponent)
+      },
+      {
+        path: 'setup',
+        loadComponent: () => import('./system/setup/setup.component')
+          .then(m => m.SetupComponent)
       }
     ]
   },

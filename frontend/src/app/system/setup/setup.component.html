@@ -1,0 +1,34 @@
+<div class="setup-container">
+  <div class="setup-header">
+    <h1>Setup</h1>
+  </div>
+
+  <div class="tabs-container">
+    <div class="tab-list" role="tablist">
+      @for (tab of tabs; track tab.id) {
+        <button
+          class="tab-button"
+          [class.active]="activeTab() === tab.id"
+          (click)="setActiveTab(tab.id)"
+          role="tab"
+          [attr.aria-selected]="activeTab() === tab.id">
+          <svg viewBox="0 0 24 24" width="20" height="20">
+            <path [attr.d]="tab.icon" />
+          </svg>
+          <span>{{ tab.label }}</span>
+        </button>
+      }
+    </div>
+
+    <div class="tab-content">
+      @switch (activeTab()) {
+        @case ('users') {
+          <app-users-tab />
+        }
+        @case ('roles') {
+          <app-roles-tab />
+        }
+      }
+    </div>
+  </div>
+</div>
