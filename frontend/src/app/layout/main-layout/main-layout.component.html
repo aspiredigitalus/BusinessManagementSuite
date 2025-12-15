@@ -1,8 +1,8 @@
 <div class="app-container">
-  <app-top-menu (menuToggle)="toggleSidebar()" />
+  <app-top-menu />
 
   <div class="main-content-wrapper">
-    <app-sidebar [collapsed]="sidebarCollapsed()" />
+    <app-sidebar [collapsed]="sidebarCollapsed()" (toggleSidebar)="toggleSidebar()" />
 
     <main class="content-area" [class.sidebar-collapsed]="sidebarCollapsed()">
       <router-outlet />

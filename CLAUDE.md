@@ -20,15 +20,25 @@ BusinessManagementSuite - A modular suite of interconnected business application
 BusinessManagementSuite/
 ├── frontend/                    # Angular application
 │   └── src/
+│       ├── app/                 # Application components and modules
+│       │   ├── system/          # System module (dashboard, auth UI)
+│       │   ├── layout/          # Layout components (top-menu, sidebar)
+│       │   ├── core/            # Core services, guards, interceptors
+│       │   └── ...              # Other feature modules
+│       └── assets/              # Static assets
+│           └── images/
+│               └── icons/       # Application icons (logo_trans_bkgrd.png)
 ├── backend/                     # Spring Boot application
 │   └── src/main/java/com/aspiredigital/
 │       ├── Application.java     # Main entry point
 │       ├── system/              # System module (auth, config, users)
-│       │   ├── config/          # SecurityConfig, WebConfig
-│       │   ├── controller/
+│       │   ├── config/          # SecurityConfig, WebConfig, JwtProperties
+│       │   ├── controller/      # AuthController
 │       │   ├── model/           # User entity
 │       │   ├── repository/      # UserRepository
-│       │   └── service/
+│       │   ├── security/        # JWT filter, UserPrincipal
+│       │   ├── service/         # UserService, JwtService
+│       │   └── dto/             # LoginRequest, UserResponse
 │       └── peoplemanagement/    # People management module
 │           ├── controller/
 │           ├── model/           # Person entity
@@ -39,6 +49,10 @@ BusinessManagementSuite/
 ├── docker-compose.yml           # Production: PostgreSQL + combined app
 └── docker-compose.dev.yml       # Development containers for VS Code
 ```
+
+## Assets
+
+- **Application Logo**: `frontend/src/assets/images/icons/logo_trans_bkgrd.png` - Used in top menu header
 
 ## Development Commands
 

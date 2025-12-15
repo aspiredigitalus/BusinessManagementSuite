@@ -9,6 +9,8 @@
   transition: width 0.2s ease;
   overflow-x: hidden;
   z-index: 900;
+  display: flex;
+  flex-direction: column;
 
   &.collapsed {
     width: var(--sidebar-collapsed-width);
@@ -16,6 +18,10 @@
     .nav-item {
       justify-content: center;
       padding: 12px;
+    }
+
+    .sidebar-footer {
+      justify-content: center;
     }
   }
 }
@@ -25,6 +31,7 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
+  flex: 1;
 }
 
 .nav-item {
@@ -60,4 +67,35 @@
 .nav-label {
   font-size: 14px;
   font-weight: 500;
+}
+
+.sidebar-footer {
+  padding: 8px;
+  display: flex;
+  justify-content: flex-end;
+  border-top: 1px solid var(--border-color);
+}
+
+.toggle-btn {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  color: var(--text-secondary);
+  transition: background 0.2s, color 0.2s;
+
+  &:hover {
+    background: var(--hover-bg);
+    color: var(--text-primary);
+  }
+
+  svg {
+    transition: transform 0.2s ease;
+
+    &.rotated {
+      transform: rotate(180deg);
+    }
+  }
 }

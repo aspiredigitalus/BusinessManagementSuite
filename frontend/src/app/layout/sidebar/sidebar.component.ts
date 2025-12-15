@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
 interface NavItem {
@@ -16,8 +16,14 @@ interface NavItem {
 })
 export class SidebarComponent {
   collapsed = input<boolean>(false);
+  toggleSidebar = output<void>();
 
   navItems: NavItem[] = [
+    {
+      path: '/dashboard',
+      label: 'Dashboard',
+      icon: 'M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zM7 12h2v5H7zm4-3h2v8h-2zm4-3h2v11h-2z'
+    },
     {
       path: '/people',
       label: 'People Management',
@@ -29,4 +35,8 @@ export class SidebarComponent {
       icon: 'M20.5 11H19V7c0-1.1-.9-2-2-2h-4V3.5C13 2.12 11.88 1 10.5 1S8 2.12 8 3.5V5H4c-1.1 0-2 .9-2 2v4h1.5c1.38 0 2.5 1.12 2.5 2.5S4.88 16 3.5 16H2v4c0 1.1.9 2 2 2h4v-1.5c0-1.38 1.12-2.5 2.5-2.5s2.5 1.12 2.5 2.5V22h4c1.1 0 2-.9 2-2v-4h1.5c1.38 0 2.5-1.12 2.5-2.5S21.88 11 20.5 11z'
     }
   ];
+
+  onToggle(): void {
+    this.toggleSidebar.emit();
+  }
 }

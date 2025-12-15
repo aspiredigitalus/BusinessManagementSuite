@@ -15,4 +15,16 @@
       </a>
     }
   </nav>
+
+  <div class="sidebar-footer">
+    <button
+      class="toggle-btn"
+      (click)="onToggle()"
+      [attr.title]="collapsed() ? 'Expand sidebar' : 'Collapse sidebar'"
+      aria-label="Toggle sidebar">
+      <svg viewBox="0 0 24 24" width="20" height="20" [class.rotated]="collapsed()">
+        <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+      </svg>
+    </button>
+  </div>
 </aside>
