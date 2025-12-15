@@ -1,0 +1,143 @@
+<div class="users-tab">
+  <div class="panel-header">
+    <h2>Users</h2>
+    <button class="btn-primary" (click)="onAddUser()">
+      <svg viewBox="0 0 24 24" width="18" height="18">
+        <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+      </svg>
+      Add User
+    </button>
+  </div>
+
+  <div class="users-content">
+    <!-- User List -->
+    <div class="user-list-panel">
+      <div class="list-header">
+        <span>All Users</span>
+        @if (isLoading()) {
+          <span class="loading-indicator">Loading...</span>
+        }
+      </div>
+      <div class="user-list">
+        @if (users().length === 0 && !isLoading()) {
+          <div class="empty-state">No users found</div>
+        }
+        @for (user of users(); track user.id) {
+          <button
+            class="user-item"
+            [class.selected]="selectedUserId() === user.id"
+            (click)="selectUser(user.id)">
+            <div class="user-avatar">
+              {{ user.firstName.charAt(0) }}{{ user.lastName.charAt(0) }}
+            </div>
+            <div class="user-info">
+              <span class="user-name">{{ user.firstName }} {{ user.lastName }}</span>
+              <span class="user-username">{{ user.username }}</span>
+            </div>
+          </button>
+        }
+      </div>
+    </div>
+
+    <!-- User Form -->
+    <div class="user-form-panel" [class.visible]="showForm()">
+      @if (showForm()) {
+        <div class="form-header">
+          <h3>{{ isAddingNew() ? 'New User' : 'Edit User' }}</h3>
+        </div>
+
+        @if (isLoadingUser()) {
+          <div class="form-loading">Loading user details...</div>
+        } @else {
+          <div class="form-body">
+            <div class="form-group">
+              <label for="username" class="required">Username</label>
+              <input
+                type="text"
+                id="username"
+                [value]="formData().username"
+                (input)="updateField('username', $event)"
+                [disabled]="!isAddingNew()"
+                placeholder="Enter username"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="firstName" class="required">First Name</label>
+              <input
+                type="text"
+                id="firstName"
+                [value]="formData().firstName"
+                (input)="updateField('firstName', $event)"
+                placeholder="Enter first name"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="lastName" class="required">Last Name</label>
+              <input
+                type="text"
+                id="lastName"
+                [value]="formData().lastName"
+                (input)="updateField('lastName', $event)"
+                placeholder="Enter last name"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="email" class="required">Email Address</label>
+              <input
+                type="email"
+                id="email"
+                [value]="formData().email"
+                (input)="updateField('email', $event)"
+                placeholder="Enter email address"
+              />
+            </div>
+
+            @if (isAddingNew()) {
+              <div class="form-group">
+                <label for="password" class="required">Password</label>
+                <input
+                  type="password"
+                  id="password"
+                  [value]="formData().password"
+                  (input)="updateField('password', $event)"
+                  placeholder="Enter password"
+                />
+              </div>
+            }
+          </div>
+
+          <div class="form-footer">
+            <button class="btn-secondary" (click)="onCancel()">Cancel</button>
+            <button
+              class="btn-primary"
+              (click)="onSave()"
+              [disabled]="!canSave()">
+              Save
+            </button>
+          </div>
+        }
+      } @else {
+        <div class="no-selection">
+          <svg viewBox="0 0 24 24" width="48" height="48">
+            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+          </svg>
+          <p>Select a user to view details or click "Add User" to create a new one</p>
+        </div>
+      }
+    </div>
+  </div>
+</div>
+
+@if (showCancelConfirm()) {
+  <app-confirm-dialog
+    title="Unsaved Changes"
+    message="You have unsaved changes. Are you sure you want to discard them?"
+    confirmText="Discard"
+    cancelText="Keep Editing"
+    (confirm)="onConfirmCancel()"
+    (cancel)="onCancelConfirm()"
+  />
+}
