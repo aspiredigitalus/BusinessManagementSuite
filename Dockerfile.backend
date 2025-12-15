@@ -1,0 +1,26 @@
+# Dev Dockerfile for Spring Boot backend
+# Optimized for fast iterative development with dependency caching
+
+FROM eclipse-temurin:21-jdk
+
+WORKDIR /app
+
+# Install Maven
+RUN apt-get update && apt-get install -y maven && rm -rf /var/lib/apt/lists/*
+
+# Copy only pom.xml first for dependency caching
+COPY backend/pom.xml ./pom.xml
+
+# Download all dependencies (cached in layer unless pom.xml changes)
+# Also download plugin dependencies for spring-boot:run
+RUN mvn dependency:go-offline -B
+
+# Source code will be bind-mounted at runtime, not copied
+# This allows hot reload without rebuilding the image
+
+# Expose port for Spring Boot
+EXPOSE 8080
+
+# Run Spring Boot with DevTools enabled
+# -Dspring-boot.run.jvmArguments enables remote debugging on port 5005
+CMD ["mvn", "spring-boot:run", "-Dspring-boot.run.jvmArguments=-Dspring.devtools.restart.enabled=true"]

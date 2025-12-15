@@ -46,8 +46,11 @@ BusinessManagementSuite/
 │           └── service/
 ├── .devcontainer/               # VS Code Dev Container config
 ├── Dockerfile                   # Multi-stage build (Angular + Spring Boot)
+├── Dockerfile.backend           # Dev Dockerfile for Spring Boot with hot reload
+├── Dockerfile.frontend          # Dev Dockerfile for Angular with hot reload
 ├── docker-compose.yml           # Production: PostgreSQL + combined app
-└── docker-compose.dev.yml       # Development containers for VS Code
+├── docker-compose.dev.yml       # Development: Separate containers with hot reload
+└── DEV-DOCKER.md                # Development Docker documentation
 ```
 
 ## Assets
@@ -56,10 +59,36 @@ BusinessManagementSuite/
 
 ## Development Commands
 
-### Docker (Recommended)
+### Docker Dev Mode (Recommended for Active Development)
+
+Hot reload for both backend and frontend without rebuilding images.
 
 ```bash
-# Build and start all services
+# First time setup
+docker compose -f docker-compose.dev.yml up --build
+
+# Normal development (no rebuild needed)
+docker compose -f docker-compose.dev.yml up
+
+# View logs
+docker compose -f docker-compose.dev.yml logs -f
+
+# Rebuild after dependency changes (pom.xml or package.json)
+docker compose -f docker-compose.dev.yml up --build backend
+docker compose -f docker-compose.dev.yml up --build frontend
+```
+
+**Access Points:**
+- Frontend: http://localhost:4200 (Angular dev server)
+- Backend: http://localhost:8080 (Spring Boot API)
+- Debug: localhost:5005 (Remote debugging)
+
+See [DEV-DOCKER.md](DEV-DOCKER.md) for full documentation.
+
+### Docker Production Mode
+
+```bash
+# Build and start production containers
 docker-compose up -d
 
 # View logs
@@ -70,9 +99,6 @@ docker-compose build && docker-compose up -d
 
 # Stop all services
 docker-compose down
-
-# Start only PostgreSQL for local backend development
-docker-compose up -d postgres
 ```
 
 **Access the app at: http://localhost:8080**

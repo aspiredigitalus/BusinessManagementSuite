@@ -1,0 +1,24 @@
+# Dev Dockerfile for Angular frontend
+# Optimized for fast iterative development with dependency caching
+
+FROM node:20-alpine
+
+WORKDIR /app
+
+# Copy only package files first for dependency caching
+COPY frontend/package*.json ./
+
+# Install dependencies (cached in layer unless package.json changes)
+RUN npm ci
+
+# Source code will be bind-mounted at runtime, not copied
+# This allows hot reload without rebuilding the image
+
+# Expose Angular dev server port
+EXPOSE 4200
+
+# Run Angular dev server with polling for Windows/Docker file watching
+# --host 0.0.0.0 makes it accessible from outside container
+# --poll 2000 ensures file changes are detected on Windows/Docker Desktop
+# --proxy-config forwards /api requests to backend
+CMD ["npm", "run", "start", "--", "--host", "0.0.0.0", "--poll", "2000", "--proxy-config", "proxy.conf.json"]
